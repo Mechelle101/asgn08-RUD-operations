@@ -67,7 +67,7 @@
     public $nest_placement;
     public $behavior;
     public $backyard_tips;
-    protected $conservation_id=1;
+    public $conservation_id=1;
 
     public const CONSERVATION_OPTIONS = [ 
         1 => "Low concern",
@@ -87,23 +87,23 @@
 
     }
     
-    //the program runs without this code???
-    // public function create_not_bound() {
-    //     $sql = "INSERT INTO birds (common_name, habitat, food, conservation_id, backyard_tips)";
-    //     $sql .= " VALUES (";
-    //     $sql .= "'" . $this->common_name . "', ";
-    //     $sql .= "'" . $this->habitat . "', ";
-    //     $sql .= "'" . $this->food . "', ";
-    //     $sql .= "'" . $this->conservation_id . "', ";
-    //     $sql .= "'" . $this->backyard_tips . "'";
-    //     $sql .= ")";
-    //     $result = self::$database->exec($sql);
+    //the program runs without this code
+    public function create_not_bound() {
+        $sql = "INSERT INTO birds (common_name, habitat, food, conservation_id, backyard_tips)";
+        $sql .= " VALUES (";
+        $sql .= "'" . $this->common_name . "', ";
+        $sql .= "'" . $this->habitat . "', ";
+        $sql .= "'" . $this->food . "', ";
+        $sql .= "'" . $this->conservation_id . "', ";
+        $sql .= "'" . $this->backyard_tips . "'";
+        $sql .= ")";
+        $result = self::$database->exec($sql);
 
-    //     if( $result ) {
-    //         $this->id = self::$database->lastInsertID();
-    //     } else  echo "Insert query did not run";
-    //     return $result;
-    // }
+        if( $result ) {
+            $this->id = self::$database->lastInsertID();
+        } else  echo "Insert query did not run";
+        return $result;
+    }
 
     public function create() {
         $attributes = $this->sanitized_attributes();

@@ -11,7 +11,7 @@ if(is_post_request()) {
 
   // Save record using post parameters
   $args = [];
-  $args['commnon_name'] = $_POST['common_name'] ?? NULL;
+  $args['common_name'] = $_POST['common_name'] ?? NULL;
   $args['habitat'] = $_POST['habitat'] ?? NULL;
   $args['food'] = $_POST['food'] ?? NULL;
   $args['conservation_id'] = $_POST['conservation_id'] ?? NULL;
@@ -30,7 +30,10 @@ if(is_post_request()) {
 } else {
 
   // display the form
-  $bird = [];
+  $bird = Bird::find_by_id($id);
+  if($bird == false) {
+    redirect_to(url_for('/bird-staff/view/index.php'));
+  }
 }
 
 ?>
@@ -48,7 +51,8 @@ if(is_post_request()) {
     <?php // echo display_errors($errors); ?>
 
     <form action="<?php echo url_for('/bird-staff/views/edit.php?id=' . h(u($id))); ?>" method="post">
-
+      <!-- all the forms we are using are in this file -->
+      <!-- this is so we can share it between edit and new -->
       <?php include('form_fields.php'); ?>
       
       <div id="operations">

@@ -105,7 +105,7 @@
         return $result;
     }
 
-    public function create() {
+    protected function create() {
         $attributes = $this->sanitized_attributes();
         $sql = "INSERT INTO birds (";
         $sql .= join(', ', array_keys($attributes));
@@ -128,6 +128,39 @@
         } else  echo "Insert query did not run";
         return $result; 
     }
+
+    protected function update() {
+        $attributes = $this->sanitized_attributes();
+        $attribute_pairs = [];
+        foreach($attributes as $key => $value) {
+            $attribute_pairs[] = "{$key}={$value}";
+        }
+
+        $sql = "UPDATE birds SET ";
+        $sql .= join(', ', $attribute_pairs);
+        $sql .= " WHERE id=" . self::$database->quote($this->id) . " ";
+        $sql .= "LIMIT 1";
+        $result = self::$database->query($sql);
+        return $result;
+    }
+
+    public function save() {
+        // A new record will not have an id yet
+        if(isset($this->id)) {
+            return $this->update();
+        } else {
+            return $this->create();
+        }
+    }
+
+    public function merge_attributes($args=[]) {
+        foreach($args as $key => $value) {
+            if(property_exists($this, $key) && !is_null($value)) {
+                $this->$key = $value;
+            }
+        }
+    }
+
     //gets each of the columns and loops through, attributes = columns
     //properties that have the db columns except id
     public function attributes() {

@@ -5,12 +5,12 @@ require_once('../../../private/initialize.php');
 if(is_post_request()) {
 
   // Create record using post parameters
-  $args = [];
-  $args['common_name'] = $_POST['common_name'] ?? NULL;
-  $args['habitat'] = $_POST['habitat'] ?? NULL;
-  $args['food'] = $_POST['food'] ?? NULL;
-  $args['conservation_id'] = $_POST['conservation_id'] ?? 1;
-  $args['backyard_tips'] = $_POST['backyard_tips'] ?? NULL;
+  $args = $_POST['bird'];
+  // $args['common_name'] = $_POST['common_name'] ?? NULL;
+  // $args['habitat'] = $_POST['habitat'] ?? NULL;
+  // $args['food'] = $_POST['food'] ?? NULL;
+  // $args['conservation_id'] = $_POST['conservation_id'] ?? 1;
+  // $args['backyard_tips'] = $_POST['backyard_tips'] ?? NULL;
 
   $bird = new Bird($args);
   $result = $bird->save();

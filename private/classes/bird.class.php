@@ -14,16 +14,18 @@
         'conservation_id', 
         'backyard_tips'];
 
-    static public function set_database($database) {
+    
+        static public function set_database($database) {
         self::$database = $database;
     }
+
+    public $errors = [];
 
     static public function find_by_sql($sql) {
         $result = self::$database->query($sql);
         if(!$result) {
             exit("<p>Database query failed</p>");
         }
-
         // Turn results into objects
         $object_array = [];
         while ($record = $result->fetch(PDO::FETCH_ASSOC)) {
@@ -58,6 +60,24 @@
         return $object;
     }
 
+    protected function validate() {
+        $this->errors = [];
+
+        if(is_blank($this->common_name)) {
+            $this->errors[] = "Name cannot be blank.";
+        }
+        if(is_blank($this->habitat)) {
+            $this->errors[] = "Habitat cannot be blank.";
+        }
+        if(is_blank($this->food)) {
+            $this->errors[] = "Food cannot be blank.";
+        }
+        if(is_blank($this->conservation_id)) {
+            $this->errors[] = "Conservation level cannot be blank.";
+        }
+        return $this->errors;
+    }
+
     // -- End of Active Record Code -- //
 
     public $id;
@@ -84,7 +104,6 @@
         $this->behavior = $args['behavior'] ?? '';
         $this->backyard_tips = $args['backyard_tips'] ?? '';
         $this->conservation_id = $args['conservation_id'] ?? '';
-
     }
     
     //the program runs without this code
@@ -106,19 +125,22 @@
     }
 
     protected function create() {
+        $this->validate();
+        if(!empty($this->errors)) { return false; }
+
         $attributes = $this->sanitized_attributes();
         $sql = "INSERT INTO birds (";
         $sql .= join(', ', array_keys($attributes));
         $sql .= ") VALUES (";
         $sql .= join(", ", array_values($attributes));
-        //$sql .= ':common_name, :habitat, :food, :conservation_id, :backyard_tips';
+        $sql .= ':common_name, :habitat, :food, :conservation_id, :backyard_tips';
         $sql .= ");";
         $stmt = self::$database->prepare($sql);
-        // $stmt->bindValue(':common_name', $this->common_name );
-        // $stmt->bindValue(':habitat', $this->habitat );
-        // $stmt->bindValue(':food', $this->food );
-        // $stmt->bindValue(':conservation_id', $this->conservation_id );
-        // $stmt->bindValue('backyard_tips', $this->backyard_tips );
+        $stmt->bindValue(':common_name', $this->common_name );
+        $stmt->bindValue(':habitat', $this->habitat );
+        $stmt->bindValue(':food', $this->food );
+        $stmt->bindValue(':conservation_id', $this->conservation_id );
+        $stmt->bindValue('backyard_tips', $this->backyard_tips );
         
         //$result = self::$database->exec($sql);
         $result = $stmt->execute();
@@ -130,12 +152,14 @@
     }
 
     protected function update() {
+        $this->validate();
+        if(!empty($this->errors)) { return false; }
+
         $attributes = $this->sanitized_attributes();
         $attribute_pairs = [];
         foreach($attributes as $key => $value) {
             $attribute_pairs[] = "{$key}={$value}";
         }
-
         $sql = "UPDATE birds SET ";
         $sql .= join(', ', $attribute_pairs);
         $sql .= " WHERE id=" . self::$database->quote($this->id) . " ";
@@ -189,5 +213,4 @@
             return "Unknown";
         }
     }
-
 }

@@ -19,22 +19,20 @@
         <th>Backyard Tips</th>
         <th>&nbsp;</th>
       </tr>
-
-
 <?php
 
 $birds = Bird::find_all();
 
 ?>
-      <?php foreach($birds as $bird) { ?>
-      <tr>
-        <td><?php echo $bird->common_name; ?></td>
-        <td><?= $bird->habitat; ?></td>
-        <td><?= $bird->food; ?></td>
-        <td><?php echo $bird->conservation(); ?></td>
-        <td><?= $bird->backyard_tips; ?></td>
-        <td><a href="detail.php?id=<?= $bird->id; ?>">View</a></td>
-      </tr>
+  <?php foreach($birds as $bird) { ?>
+  <tr>
+    <td><?php echo $bird->common_name; ?></td>
+    <td><?= $bird->habitat; ?></td>
+    <td><?= $bird->food; ?></td>
+    <td><?php echo $bird->conservation(); ?></td>
+    <td><?= $bird->backyard_tips; ?></td>
+    <td><a href="detail.php?id=<?= $bird->id; ?>">View</a></td>
+  </tr>
 <?php } ?>
     </table>
 

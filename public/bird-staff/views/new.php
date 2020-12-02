@@ -6,11 +6,6 @@ if(is_post_request()) {
 
   // Create record using post parameters
   $args = $_POST['bird'];
-  // $args['common_name'] = $_POST['common_name'] ?? NULL;
-  // $args['habitat'] = $_POST['habitat'] ?? NULL;
-  // $args['food'] = $_POST['food'] ?? NULL;
-  // $args['conservation_id'] = $_POST['conservation_id'] ?? 1;
-  // $args['backyard_tips'] = $_POST['backyard_tips'] ?? NULL;
 
   $bird = new Bird($args);
   $result = $bird->save();
@@ -40,7 +35,7 @@ if(is_post_request()) {
   <div class="bicycle new">
     <h1>Create Bird</h1>
 
-    <?php // echo display_errors($errors); ?>
+    <?php echo display_errors($bird->errors); ?>
 
     <form action="<?php echo url_for('/bird-staff/views/new.php'); ?>" method="post">
 

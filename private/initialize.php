@@ -14,7 +14,7 @@
   // Assign the root URL to a PHP constant
   // * Do not need to include the domain
   // * Use same document root as webserver
-  // * Can set a hardcoded value:
+  // * Can set a hard-coded value:
   // define("WWW_ROOT", '/~kevinskoglund/chain_gang/public');
   // define("WWW_ROOT", '');
   // * Can dynamically find everything in URL up to "/public"

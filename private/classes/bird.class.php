@@ -14,7 +14,6 @@
         'conservation_id', 
         'backyard_tips'];
 
-    
         static public function set_database($database) {
         self::$database = $database;
     }
@@ -133,7 +132,6 @@
         $sql .= join(', ', array_keys($attributes));
         $sql .= ") VALUES (";
         $sql .= join(", ", array_values($attributes));
-        $sql .= ':common_name, :habitat, :food, :conservation_id, :backyard_tips';
         $sql .= ");";
         $stmt = self::$database->prepare($sql);
         $stmt->bindValue(':common_name', $this->common_name );
@@ -205,8 +203,20 @@
         return $sanitized; 
     }
 
+    public function delete() {
+        $sql = "DELETE FROM bird ";
+        $sql .= "WHERE id = '" . self::$database->quote($this->id) . "' ";
+        $sql .= "LIMIT '1'";
+        $result = self::$database->query($sql);
+        return $result;
+
+        //after deleting, the instance of the object will still exist
+        //even though the database record does not
+        //this can be useful for echoing back the item that was deleted
+        //you can't call $user->update() after $user->delete()
+    }
+
     public function conservation() {
-        // echo self::CONSERVATION_OPTIONS[$this->conservation_id];
         if( $this->conservation_id > 0 ) {
             return self::CONSERVATION_OPTIONS[$this->conservation_id];
         } else {

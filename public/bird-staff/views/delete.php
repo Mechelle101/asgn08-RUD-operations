@@ -12,11 +12,10 @@ if($bird == false) {
 }
 
 if(is_post_request()) {
-
   // Delete bird
   $result = $bird->delete();
 
-  $_SESSION['message'] = 'The bicycle was deleted successfully.';
+  $_SESSION['message'] = 'The bird was deleted successfully.';
   redirect_to(url_for('/bird-staff/views/index.php'));
 
 } else {

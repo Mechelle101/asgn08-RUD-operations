@@ -15,7 +15,7 @@
   // * Do not need to include the domain
   // * Use same document root as webserver
   // * Can set a hard-coded value:
-  // define("WWW_ROOT", '/~kevinskoglund/chain_gang/public');
+  // define("WWW_ROOT", '/kevinskoglund/chain_gang/public');
   // define("WWW_ROOT", '');
   // * Can dynamically find everything in URL up to "/public"
   $public_end = strpos($_SERVER['SCRIPT_NAME'], '/public') + 7;
@@ -27,8 +27,12 @@
   require_once('db_credentials.php');
   require_once('db_functions.php');
   
+  
+  include('classes/databaseobject.class.php');
   include('classes/bird.class.php');
+  include('classes/admin.class.php');
   include('classes/parsecsv.class.php');
+  
   // Autoload class definitions
 
   function my_autoload($class) {
@@ -40,6 +44,6 @@
   spl_autoload_register('my_autoload');
 
   $database = db_connect();
-  Bird::set_database($database);
+  DatabaseObject::set_database($database);
 
 ?>

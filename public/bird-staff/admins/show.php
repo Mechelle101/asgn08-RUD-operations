@@ -39,5 +39,5 @@ $admin = Admin::find_by_id($id);
     </div>
 
   </div>
-
+  <!-- adding comments to see if that will work -->
 </div>

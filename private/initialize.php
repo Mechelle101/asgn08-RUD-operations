@@ -45,5 +45,5 @@
 
   $database = db_connect();
   DatabaseObject::set_database($database);
-
+//adding comments to see if that will work
 ?>

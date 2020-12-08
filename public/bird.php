@@ -39,5 +39,5 @@ $birds = Bird::find_all();
   </div>
 
 </div>
-
+<!-- adding comments to see if that will work -->
 <?php include(SHARED_PATH . '/public_footer.php'); ?>

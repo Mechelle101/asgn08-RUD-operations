@@ -13,5 +13,3 @@
     define("DB_PASS", "Bri96And98Tyl01");
     define("DB_NAME", "wnc-birds");
 //}
-
-//adding comments to see if that will work

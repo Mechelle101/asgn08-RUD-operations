@@ -15,5 +15,4 @@ function db_connect() {
             $connection->close();
         }
     }
-    //adding comments to see if that will work
 }

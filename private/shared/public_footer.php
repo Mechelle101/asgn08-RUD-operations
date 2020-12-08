@@ -19,5 +19,5 @@
 
   </body>
 </html>
-<!-- //adding comments to see if that will work -->
+
 <?php //db_disconnect($connection); ?>

@@ -21,5 +21,5 @@
         <li><a href="<?php echo url_for('/bird-staff/index.php'); ?>">Menu</a></li>
       </ul>
     </navigation>
-    <!-- //adding comments to see if that will work -->
+
     <?php echo display_session_message(); ?>

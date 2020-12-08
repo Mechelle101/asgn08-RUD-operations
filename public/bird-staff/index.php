@@ -13,5 +13,5 @@
   </div>
 
 </div>
-<!-- adding comments to see if that will work -->
+
 <?php include(SHARED_PATH . '/bird-staff-footer.php'); ?>

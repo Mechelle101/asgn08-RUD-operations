@@ -38,4 +38,3 @@ if(!isset($bird)) {
   <dt>Backyard Tips</dt>
   <dd><input type="text" name="bird[backyard_tips]" value="<?php echo h($bird->backyard_tips); ?>"></dd>
 </dl>
-<!-- //adding comments to see if that will work -->
